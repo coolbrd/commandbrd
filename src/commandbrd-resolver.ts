@@ -25,7 +25,7 @@ export default class CommandbrdResolver {
             }
 
             command = potentialCommand;
-            commandList = command.subcommands;
+            commandList = command.subCommandInstances;
         }
 
         return command;
