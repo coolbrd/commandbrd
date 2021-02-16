@@ -1,6 +1,27 @@
 import Commandbrd from "../../src/commandbrd";
 import CommandbrdResolver from "../../src/commandbrd-resolver";
 
+describe("Resolver behavior", () => {
+    let resolver: CommandbrdResolver;
+
+    beforeEach(() => {
+        resolver = new CommandbrdResolver([Commandbrd.newCommand(FakeCommandBrd1), Commandbrd.newCommand(FakeCommandBrd2)]);
+    });
+
+    it("should resolve top-level commands", () => {
+        let text = new TestTextIterator("fake1");
+        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandBrd1);
+
+        text = new TestTextIterator("fake2");
+        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandBrd2);
+    });
+
+    it("should not resolve invalid command names", () => {
+        let text = new TestTextIterator("invalid");
+        expect(resolver.resolve(text)).toBeUndefined();
+    });
+});
+
 class TestTextIterator {
     private readonly text: string[];
     
@@ -51,24 +72,3 @@ class FakeCommandbrd2Sub1 extends Commandbrd {
         return;
     }
 }
-
-describe("Resolver behavior", () => {
-    let resolver: CommandbrdResolver;
-
-    beforeEach(() => {
-        resolver = new CommandbrdResolver([Commandbrd.newCommand(FakeCommandBrd1), Commandbrd.newCommand(FakeCommandBrd2)]);
-    });
-
-    it("should resolve top-level commands", () => {
-        let text = new TestTextIterator("fake1");
-        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandBrd1);
-
-        text = new TestTextIterator("fake2");
-        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandBrd2);
-    });
-
-    it("should not resolve invalid command names", () => {
-        let text = new TestTextIterator("invalid");
-        expect(resolver.resolve(text)).toBeUndefined();
-    });
-});
