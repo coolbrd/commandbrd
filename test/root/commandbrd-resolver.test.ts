@@ -5,7 +5,12 @@ describe("Resolver behavior", () => {
     let resolver: CommandbrdResolver;
 
     beforeEach(() => {
-        resolver = new CommandbrdResolver([Commandbrd.newCommand(FakeCommandBrd1), Commandbrd.newCommand(FakeCommandBrd2)]);
+        const command1 = new FakeCommandBrd1;
+        command1.init();
+        const command2 = new FakeCommandBrd2;
+        command2.init();
+
+        resolver = new CommandbrdResolver([command1, command2]);
     });
 
     it("should resolve top-level commands", () => {

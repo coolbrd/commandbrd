@@ -4,7 +4,8 @@ describe("Commandbrd initialization", () => {
     let commandbrd: Commandbrd;
 
     beforeEach(() => {
-        commandbrd = Commandbrd.newCommand(FakeCommandbrd1);
+        commandbrd = new FakeCommandbrd1();
+        commandbrd.init();
     });
 
     it("should have an initialized subcommand", () => {

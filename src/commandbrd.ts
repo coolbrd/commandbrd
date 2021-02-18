@@ -1,4 +1,4 @@
-interface ConcreteCommandbrdClass extends Commandbrd { new(...args: any): Commandbrd };
+interface ConcreteCommandbrdClass<T extends Commandbrd> { new(...args: any): T };
 
 export default abstract class Commandbrd {
     public abstract readonly names: string[];
@@ -7,7 +7,7 @@ export default abstract class Commandbrd {
 
     public abstract run(): Promise<void>;
 
-    protected readonly subCommands: ConcreteCommandbrdClass[] = [];
+    protected readonly subCommands: ConcreteCommandbrdClass<Commandbrd>[] = [];
     public subCommandInstances: Commandbrd[] = [];
 
     public init(): void {
@@ -19,7 +19,7 @@ export default abstract class Commandbrd {
         });
     }
 
-    protected newCommand(commandClass: ConcreteCommandbrdClass): Commandbrd {
+    protected newCommand(commandClass: ConcreteCommandbrdClass<Commandbrd>): Commandbrd {
         return new commandClass();
     }
 }
