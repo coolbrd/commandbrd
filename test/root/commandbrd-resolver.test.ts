@@ -16,6 +16,16 @@ describe("Resolver behavior", () => {
         expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandBrd2);
     });
 
+    it("should resolve 2nd level commands", () => {
+        let text = new TestTextIterator("f2 sub1");
+        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandbrd2Sub1);
+    });
+
+    it("should resolve to the closest possible valid command", () => {
+        let text = new TestTextIterator("fake1 invalid1 invalid2");
+        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandBrd1);
+    });
+
     it("should not resolve invalid command names", () => {
         let text = new TestTextIterator("invalid");
         expect(resolver.resolve(text)).toBeUndefined();
@@ -35,7 +45,7 @@ class TestTextIterator {
 
     public next(): string {
         if (!this.hasNext()) {
-            throw new Error("No more text");
+            throw new Error("No more text to iterate.");
         }
 
         return this.text.shift() as string;
