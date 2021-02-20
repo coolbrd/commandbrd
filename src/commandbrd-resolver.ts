@@ -1,19 +1,21 @@
-import CommandbrdIdentifier from "./commandbrd/commandbrd-identifier";
+import CommandbrdIdentifier from "./commandbrd-identifier";
 
 interface TextArgumentIterator {
     next(): string;
     hasNext(): boolean;
 }
 
-export default class CommandbrdResolver {
-    private readonly commands: CommandbrdIdentifier[];
+type IdentifierType = CommandbrdIdentifier<any>;
 
-    constructor(commands: CommandbrdIdentifier[]) {
+export default class CommandbrdResolver {
+    private readonly commands: IdentifierType[];
+
+    constructor(commands: IdentifierType[]) {
         this.commands = commands;
     }
 
-    public resolve(textIterator: TextArgumentIterator): CommandbrdIdentifier | undefined {
-        let command: CommandbrdIdentifier | undefined;
+    public resolve(textIterator: TextArgumentIterator): IdentifierType | undefined {
+        let command: IdentifierType | undefined;
         let commandList = this.commands;
 
         while (textIterator.hasNext()) {

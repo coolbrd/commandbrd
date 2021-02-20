@@ -1,6 +1,6 @@
+import CommandbrdResolver from "../../src/commandbrd-resolver";
 import Commandbrd from "../../src/commandbrd";
 import CommandbrdIdentifier from "../../src/commandbrd-identifier";
-import CommandbrdResolver from "../../src/commandbrd-resolver";
 
 const fakeCommandBrd1 = new CommandbrdIdentifier(
     ["fake1", "f1"],

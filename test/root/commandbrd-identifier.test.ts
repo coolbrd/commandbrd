@@ -4,7 +4,7 @@ import CommandbrdIdentifier from "../../src/commandbrd-identifier";
 jest.mock("../../src/commandbrd");
 
 describe("command running behavior", () => {
-    let commandbrd: CommandbrdIdentifier;
+    let commandbrd: CommandbrdIdentifier<{}>;
 
     beforeEach(() => {
         commandbrd = new CommandbrdIdentifier(
@@ -20,15 +20,15 @@ describe("command running behavior", () => {
 
     it("should initialize a new command instance with every execution", async () => {
         expect(Commandbrd).not.toBeCalled();
-        await commandbrd.run();
+        await commandbrd.run({});
         expect(Commandbrd).toBeCalledTimes(1);
-        await commandbrd.run();
+        await commandbrd.run({});
         expect(Commandbrd).toBeCalledTimes(2);
     });
 
     it("should throw an error when running the command throws", () => {
         jest.spyOn(Commandbrd.prototype, "execute").mockImplementation(() => { throw new Error("Test error") });
 
-        expect(commandbrd.run()).rejects.toThrow();
+        expect(commandbrd.run({})).rejects.toThrow();
     });
 });

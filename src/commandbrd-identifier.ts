@@ -1,19 +1,21 @@
 import { stripIndent } from "common-tags";
 import Commandbrd from "./commandbrd";
 
-export default class CommandbrdIdentifier {
+interface NewableCommandType<ContextType, CommandType> { new(identifier: CommandbrdIdentifier<ContextType>, context: ContextType): CommandType };
+
+export default class CommandbrdIdentifier<ContextType> {
     public readonly names: string[];
     public readonly info: string;
     public readonly usage: string;
-    public readonly subCommands: CommandbrdIdentifier[];
-    public readonly CommandClass: typeof Commandbrd;
+    public readonly subCommands: CommandbrdIdentifier<ContextType>[];
+    public readonly CommandClass: NewableCommandType<ContextType, Commandbrd<ContextType>>;
 
     constructor(
         names: string[],
         info: string,
         usage: string,
-        subCommands: CommandbrdIdentifier[],
-        commandClass: typeof Commandbrd)
+        subCommands: CommandbrdIdentifier<ContextType>[],
+        commandClass: NewableCommandType<ContextType, Commandbrd<ContextType>>)
     {
         this.names = names;
         this.info = info;
@@ -26,8 +28,8 @@ export default class CommandbrdIdentifier {
         return this.names[0];
     }
 
-    public async run(): Promise<void> {
-        const command = new this.CommandClass(this);
+    public async run(context: ContextType): Promise<void> {
+        const command = new this.CommandClass(this, context);
 
         try {
             await command.execute();
