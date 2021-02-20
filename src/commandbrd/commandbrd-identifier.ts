@@ -13,7 +13,8 @@ export default class CommandbrdIdentifier {
         info: string,
         usage: string,
         subCommands: CommandbrdIdentifier[],
-        commandClass: typeof Commandbrd) {
+        commandClass: typeof Commandbrd)
+    {
         this.names = names;
         this.info = info;
         this.usage = usage;
