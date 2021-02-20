@@ -1,4 +1,4 @@
-import CommandbrdIdentifier from "./commandbrd-identifier";
+import CommandbrdIdentifier from "./commandbrd/commandbrd-identifier";
 
 interface TextArgumentIterator {
     next(): string;
