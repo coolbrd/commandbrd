@@ -1,25 +1,15 @@
-interface ConcreteCommandbrdClass<T extends Commandbrd> { new(...args: any): T };
+import CommandbrdIdentifier from "./commandbrd-identifier";
 
-export default abstract class Commandbrd {
-    public abstract readonly names: string[];
-    public abstract readonly info: string;
-    public abstract readonly usage: string;
+export default class Commandbrd {
+    public readonly identifier: CommandbrdIdentifier;
 
-    public abstract run(): Promise<void>;
-
-    protected readonly subCommands: ConcreteCommandbrdClass<Commandbrd>[] = [];
-    public subCommandInstances: Commandbrd[] = [];
-
-    public init(): void {
-        this.subCommandInstances = this.subCommands.map(commandClass => {
-            const newCommand = this.newCommand(commandClass);
-            newCommand.init();
-
-            return newCommand;
-        });
+    constructor(identifier: CommandbrdIdentifier) {
+        this.identifier = identifier;
     }
 
-    protected newCommand(commandClass: ConcreteCommandbrdClass<Commandbrd>): Commandbrd {
-        return new commandClass();
+    public async execute(): Promise<void> {}
+
+    public async unexecute(): Promise<void> {
+        throw new Error("This command cannot be un-executed.");
     }
 }

@@ -1,32 +1,32 @@
 import Commandbrd from "../../src/commandbrd";
+import CommandbrdIdentifier from "../../src/commandbrd-identifier";
 
-describe("Commandbrd initialization", () => {
-    let commandbrd: Commandbrd;
+const commandbrdIdentifier = new CommandbrdIdentifier(
+    ["fake1", "f1"],
+    "N/A",
+    "N/A",
+    [],
+    Commandbrd
+);
 
-    beforeEach(() => {
-        commandbrd = new FakeCommandbrd1();
-        commandbrd.init();
-    });
+describe("commandbrd initialization", () => {
+    it("should should save its identifier", () => {
+        const commandbrd = new Commandbrd(commandbrdIdentifier);
 
-    it("should have an initialized subcommand", () => {
-        expect(commandbrd.subCommandInstances.length).toBe(1);
-        expect(commandbrd.subCommandInstances[0]).toBeInstanceOf(FakeCommandBrd1Sub1);
+        expect(commandbrd.identifier).toBe(commandbrdIdentifier);
     });
 });
 
-class FakeCommandbrd1 extends Commandbrd {
-    public readonly names = ["fake1", "f1"];
-    public readonly info = "N/A";
-    public readonly usage = "N/A";
-    public readonly subCommands = [FakeCommandBrd1Sub1];
+describe("commandbrd default implementation", () => {
+    it("should throw an error when attempted to un-execute", async () => {
+        const commandbrd = new Commandbrd(commandbrdIdentifier);
 
-    public async run(): Promise<void> {}
-}
+        expect(commandbrd.unexecute()).rejects.toThrow();
+    });
 
-class FakeCommandBrd1Sub1 extends Commandbrd {
-    public readonly names = ["sub1", "s1"];
-    public readonly info = "N/A";
-    public readonly usage = "N/A";
+    it("should execute nothing by default", async () => {
+        const commandbrd = new Commandbrd(commandbrdIdentifier);
 
-    public async run(): Promise<void> {}
-}
+        expect(commandbrd.execute()).resolves.not.toThrow();
+    });
+});

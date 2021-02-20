@@ -1,34 +1,54 @@
 import Commandbrd from "../../src/commandbrd";
+import CommandbrdIdentifier from "../../src/commandbrd-identifier";
 import CommandbrdResolver from "../../src/commandbrd-resolver";
+
+const fakeCommandBrd1 = new CommandbrdIdentifier(
+    ["fake1", "f1"],
+    "N/A",
+    "N/A",
+    [],
+    Commandbrd
+);
+
+const fakeCommandBrd2Sub1 = new CommandbrdIdentifier(
+    ["sub1", "s1"],
+    "N/A",
+    "N/A",
+    [],
+    Commandbrd
+);
+
+const fakeCommandBrd2 = new CommandbrdIdentifier(
+    ["fake2", "f2"],
+    "N/A",
+    "N/A",
+    [fakeCommandBrd2Sub1],
+    Commandbrd
+);
 
 describe("Resolver behavior", () => {
     let resolver: CommandbrdResolver;
 
     beforeEach(() => {
-        const command1 = new FakeCommandBrd1;
-        command1.init();
-        const command2 = new FakeCommandBrd2;
-        command2.init();
-
-        resolver = new CommandbrdResolver([command1, command2]);
+        resolver = new CommandbrdResolver([fakeCommandBrd1, fakeCommandBrd2]);
     });
 
     it("should resolve top-level commands", () => {
         let text = new TestTextIterator("fake1");
-        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandBrd1);
+        expect(resolver.resolve(text)?.primaryName).toBe("fake1");
 
         text = new TestTextIterator("fake2");
-        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandBrd2);
+        expect(resolver.resolve(text)?.primaryName).toBe("fake2");
     });
 
     it("should resolve 2nd level commands", () => {
         let text = new TestTextIterator("f2 sub1");
-        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandbrd2Sub1);
+        expect(resolver.resolve(text)?.primaryName).toBe("sub1");
     });
 
     it("should resolve to the closest possible valid command", () => {
         let text = new TestTextIterator("fake1 invalid1 invalid2");
-        expect(resolver.resolve(text)).toBeInstanceOf(FakeCommandBrd1);
+        expect(resolver.resolve(text)?.primaryName).toBe("fake1");
     });
 
     it("should not resolve invalid command names", () => {
@@ -54,36 +74,5 @@ class TestTextIterator {
         }
 
         return this.text.shift() as string;
-    }
-}
-
-class FakeCommandBrd1 extends Commandbrd {
-    public readonly names = ["fake1", "f1"];
-    public readonly info = "N/A";
-    public readonly usage = "N/A";
-
-    public async run(): Promise<void> {
-        return;
-    }
-}
-
-class FakeCommandBrd2 extends Commandbrd {
-    public readonly names = ["fake2", "f2"];
-    public readonly info = "N/A";
-    public readonly usage = "N/A";
-    public readonly subCommands = [FakeCommandbrd2Sub1];
-
-    public async run(): Promise<void> {
-        return;
-    }
-}
-
-class FakeCommandbrd2Sub1 extends Commandbrd {
-    public readonly names = ["sub1", "s1"];
-    public readonly info = "N/A";
-    public readonly usage = "N/A";
-
-    public async run(): Promise<void> {
-        return;
     }
 }

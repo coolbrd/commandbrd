@@ -1,4 +1,4 @@
-import Commandbrd from "./commandbrd";
+import CommandbrdIdentifier from "./commandbrd-identifier";
 
 interface TextArgumentIterator {
     next(): string;
@@ -6,14 +6,14 @@ interface TextArgumentIterator {
 }
 
 export default class CommandbrdResolver {
-    private readonly commands: Commandbrd[];
+    private readonly commands: CommandbrdIdentifier[];
 
-    constructor(commands: Commandbrd[]) {
+    constructor(commands: CommandbrdIdentifier[]) {
         this.commands = commands;
     }
 
-    public resolve(textIterator: TextArgumentIterator): Commandbrd | undefined {
-        let command: Commandbrd | undefined;
+    public resolve(textIterator: TextArgumentIterator): CommandbrdIdentifier | undefined {
+        let command: CommandbrdIdentifier | undefined;
         let commandList = this.commands;
 
         while (textIterator.hasNext()) {
@@ -25,7 +25,7 @@ export default class CommandbrdResolver {
             }
 
             command = potentialCommand;
-            commandList = command.subCommandInstances;
+            commandList = command.subCommands;
         }
 
         return command;
