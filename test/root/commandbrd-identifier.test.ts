@@ -7,13 +7,12 @@ describe("command running behavior", () => {
     let commandbrd: CommandbrdIdentifier<{}>;
 
     beforeEach(() => {
-        commandbrd = new CommandbrdIdentifier(
-            ["fake1", "f1"],
-            "N/A",
-            "N/A",
-            [],
-            Commandbrd
-        );
+        commandbrd = new CommandbrdIdentifier({
+            names: ["fake1", "f1"],
+            info: "N/A",
+            usage: "N/A",
+            commandClass: Commandbrd
+        });
 
         jest.resetAllMocks();
     });

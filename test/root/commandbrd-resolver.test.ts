@@ -2,29 +2,21 @@ import CommandbrdResolver from "../../src/commandbrd-resolver";
 import Commandbrd from "../../src/commandbrd";
 import CommandbrdIdentifier from "../../src/commandbrd-identifier";
 
-const fakeCommandBrd1 = new CommandbrdIdentifier(
-    ["fake1", "f1"],
-    "N/A",
-    "N/A",
-    [],
-    Commandbrd
-);
+const fakeCommandBrd1 = new CommandbrdIdentifier({
+    names: ["fake1", "f1"],
+    commandClass: Commandbrd
+});
 
-const fakeCommandBrd2Sub1 = new CommandbrdIdentifier(
-    ["sub1", "s1"],
-    "N/A",
-    "N/A",
-    [],
-    Commandbrd
-);
+const fakeCommandBrd2Sub1 = new CommandbrdIdentifier({
+    names: ["sub1", "s1"],
+    commandClass: Commandbrd
+});
 
-const fakeCommandBrd2 = new CommandbrdIdentifier(
-    ["fake2", "f2"],
-    "N/A",
-    "N/A",
-    [fakeCommandBrd2Sub1],
-    Commandbrd
-);
+const fakeCommandBrd2 = new CommandbrdIdentifier({
+    names: ["fake2", "f2"],
+    subCommands: [fakeCommandBrd2Sub1],
+    commandClass: Commandbrd
+});
 
 describe("Resolver behavior", () => {
     let resolver: CommandbrdResolver;

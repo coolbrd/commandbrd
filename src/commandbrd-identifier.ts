@@ -11,17 +11,19 @@ export default class CommandbrdIdentifier<ContextType> {
     public readonly CommandClass: NewableCommandType<ContextType, Commandbrd<ContextType>>;
 
     constructor(
-        names: string[],
-        info: string,
-        usage: string,
-        subCommands: CommandbrdIdentifier<ContextType>[],
-        commandClass: NewableCommandType<ContextType, Commandbrd<ContextType>>)
+        options: {
+            names: string[],
+            info?: string,
+            usage?: string,
+            subCommands?: CommandbrdIdentifier<ContextType>[],
+            commandClass: NewableCommandType<ContextType, Commandbrd<ContextType>>
+        })
     {
-        this.names = names;
-        this.info = info;
-        this.usage = usage;
-        this.subCommands = subCommands;
-        this.CommandClass = commandClass;
+        this.names = options.names;
+        this.info = options.info ? options.info : "N/A";
+        this.usage = options.usage ? options.usage : "N/A";
+        this.subCommands = options.subCommands ? options.subCommands : [];
+        this.CommandClass = options.commandClass;
     }
 
     public get primaryName(): string {

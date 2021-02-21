@@ -1,13 +1,10 @@
 import Commandbrd from "../../src/commandbrd";
 import CommandbrdIdentifier from "../../src/commandbrd-identifier";
 
-const commandbrdIdentifier = new CommandbrdIdentifier(
-    ["fake1", "f1"],
-    "N/A",
-    "N/A",
-    [],
-    Commandbrd
-);
+const commandbrdIdentifier = new CommandbrdIdentifier({
+    names: ["fake1", "f1"],
+    commandClass: Commandbrd
+});
 
 describe("commandbrd initialization", () => {
     it("should should save its identifier", () => {
