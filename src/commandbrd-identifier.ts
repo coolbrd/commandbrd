@@ -3,6 +3,14 @@ import Commandbrd from "./commandbrd";
 
 interface NewableCommandType<ContextType, CommandType> { new(identifier: CommandbrdIdentifier<ContextType>, context: ContextType): CommandType };
 
+export interface CommandbrdIdentifierOptions<ContextType> {
+    names: string[],
+    info?: string,
+    usage?: string,
+    subCommands?: CommandbrdIdentifier<ContextType>[],
+    commandClass: NewableCommandType<ContextType, Commandbrd<ContextType>>
+}
+
 export default class CommandbrdIdentifier<ContextType> {
     public readonly names: string[];
     public readonly info: string;
@@ -10,15 +18,7 @@ export default class CommandbrdIdentifier<ContextType> {
     public readonly subCommands: CommandbrdIdentifier<ContextType>[];
     public readonly CommandClass: NewableCommandType<ContextType, Commandbrd<ContextType>>;
 
-    constructor(
-        options: {
-            names: string[],
-            info?: string,
-            usage?: string,
-            subCommands?: CommandbrdIdentifier<ContextType>[],
-            commandClass: NewableCommandType<ContextType, Commandbrd<ContextType>>
-        })
-    {
+    constructor(options: CommandbrdIdentifierOptions<ContextType>) {
         this.names = options.names;
         this.info = options.info ? options.info : "N/A";
         this.usage = options.usage ? options.usage : "N/A";
