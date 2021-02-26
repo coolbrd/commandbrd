@@ -3,6 +3,10 @@ import Commandbrd from "./commandbrd";
 
 interface NewableCommandType<ContextType, CommandType> { new(identifier: CommandbrdIdentifier<ContextType>, context: ContextType): CommandType };
 
+export interface RunReceipt {
+    runSuccessful: boolean
+}
+
 export interface CommandbrdIdentifierOptions<ContextType> {
     names: string[],
     info?: string,
@@ -30,7 +34,8 @@ export default class CommandbrdIdentifier<ContextType> {
         return this.names[0];
     }
 
-    public async run(context: ContextType): Promise<void> {
+    public async run(context: ContextType): Promise<RunReceipt> {
+        const receipt = this.newReceipt();
         const command = new this.CommandClass(this, context);
 
         try {
@@ -45,5 +50,14 @@ export default class CommandbrdIdentifier<ContextType> {
                 ${error}
             `);
         }
+
+        receipt.runSuccessful = true;
+        return receipt;
+    }
+
+    protected newReceipt(): RunReceipt {
+        return {
+            runSuccessful: false
+        };
     }
 }
