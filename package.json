@@ -2,10 +2,11 @@
   "name": "commandbrd",
   "version": "1.0.0",
   "description": "A command system built for use with Discord.js.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --coverage",
-    "prebuild": "rimraf build",
+    "prebuild": "rimraf dist",
     "build": "tsc"
   },
   "repository": {
