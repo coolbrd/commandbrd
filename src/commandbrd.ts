@@ -1,6 +1,6 @@
 import CommandbrdIdentifier from "./commandbrd-identifier";
 
-export default class Commandbrd<ContextType> {
+export default class Commandbrd<ContextType = {}> {
     public readonly identifier: CommandbrdIdentifier<ContextType>;
     public readonly context: ContextType;
 

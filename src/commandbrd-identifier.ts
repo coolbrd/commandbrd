@@ -1,7 +1,7 @@
 import { stripIndent } from "common-tags";
 import Commandbrd from "./commandbrd";
 
-interface NewableCommandType<ContextType, CommandType> { new(identifier: CommandbrdIdentifier<ContextType>, context: ContextType): CommandType };
+interface NewableCommandType<ContextType = {}, CommandType = Commandbrd> { new(identifier: CommandbrdIdentifier<ContextType>, context: ContextType): CommandType };
 
 export interface RunReceipt {
     runSuccessful: boolean
@@ -15,7 +15,7 @@ export interface CommandbrdIdentifierOptions<ContextType> {
     commandClass: NewableCommandType<ContextType, Commandbrd<ContextType>>
 }
 
-export default class CommandbrdIdentifier<ContextType> {
+export default class CommandbrdIdentifier<ContextType = {}> {
     public readonly names: string[];
     public readonly info: string;
     public readonly usage: string;

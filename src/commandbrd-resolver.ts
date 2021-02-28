@@ -5,7 +5,7 @@ interface TextArgumentIterator {
     hasNext(): boolean;
 }
 
-type IdentifierType = CommandbrdIdentifier<any>;
+type IdentifierType = CommandbrdIdentifier;
 
 export default class CommandbrdResolver {
     private readonly commands: IdentifierType[];

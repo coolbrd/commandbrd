@@ -4,7 +4,7 @@ import CommandbrdIdentifier from "../../src/commandbrd-identifier";
 jest.mock("../../src/commandbrd");
 
 describe("command running behavior", () => {
-    let commandbrd: CommandbrdIdentifier<{}>;
+    let commandbrd: CommandbrdIdentifier;
 
     beforeEach(() => {
         commandbrd = new CommandbrdIdentifier({

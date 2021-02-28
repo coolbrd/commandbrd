@@ -7,14 +7,6 @@ import CommandbrdIdentifierDiscord from "../../../src/discord/commandbrd-identif
 jest.mock("discord.js");
 
 describe("commandbrd identifier Discord general behavior", () => {
-    let mockedMessage: Message;
-
-    beforeEach(() => {
-        jest.resetAllMocks();
-
-        mockedMessage = createMockedMessage();
-    });
-
     it("should initialize properly", () => {
         const identifier = new CommandbrdIdentifierDiscord({
             names: ["fake", "f1"],

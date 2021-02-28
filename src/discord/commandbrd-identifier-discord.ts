@@ -3,12 +3,12 @@ import { PermissionString } from "discord.js";
 import CommandbrdIdentifier, { CommandbrdIdentifierOptions, RunReceipt } from "../commandbrd-identifier";
 import CommandbrdContextDiscord from "./commandbrd-context-discord";
 
-export interface CommandbrdIdentifierDiscordOptions<ContextType extends CommandbrdContextDiscord> extends CommandbrdIdentifierOptions<ContextType> {
+export interface CommandbrdIdentifierDiscordOptions<ContextType extends CommandbrdContextDiscord = CommandbrdContextDiscord> extends CommandbrdIdentifierOptions<ContextType> {
     requiredPermissions?: PermissionString[],
     guildOnly?: boolean
 }
 
-export default class CommandbrdIdentifierDiscord<ContextType extends CommandbrdContextDiscord> extends CommandbrdIdentifier<ContextType> {
+export default class CommandbrdIdentifierDiscord<ContextType extends CommandbrdContextDiscord = CommandbrdContextDiscord> extends CommandbrdIdentifier<ContextType> {
     public readonly requiredPermissions: PermissionString[];
     public readonly guildOnly: boolean;
 
